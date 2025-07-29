@@ -10,7 +10,7 @@ class SkunkGame {
         this.sectionNames       = ['S', 'K', 'U', 'N', 'K'];
         this.isRolling          = false;
         this.hasGameStarted     = false; // Track if game has been played
-        this.firstRollInSection = true; // Track if it's the first roll in the section
+        this.firstRollInSection = true;  // Track if it's the first roll in the section
         this.isFinalized        = false; // Track if game is finalized
         
         this.initializeGame();
@@ -77,6 +77,7 @@ class SkunkGame {
         this.addRollingAnimation();
 
         setTimeout(() => {
+            
             const diceValues = this.generateDiceValues();
             this.updateDiceDisplay(diceValues);
             this.evaluateRoll(diceValues);
