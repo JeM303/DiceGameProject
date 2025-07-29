@@ -1,7 +1,7 @@
 # SKUNK Dice Game & Classic PvC Dice Game - COMP 2132 Project
 
-A JavaScript web application implementing both the classic SKUNK dice game 
-and a Player vs Computer (PvC) 3-round dice game.
+A JavaScript web application implementing both the SKUNK dice game 
+and Classic Player vs Computer (PvC) 3-round dice game.
 ---
 ## Author: Jeremy Melegrito
 
