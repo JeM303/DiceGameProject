@@ -164,8 +164,8 @@ class SkunkGame {
 
         const diceImage = diceElement.querySelector('.dice-image');
 
-        diceImage.src = `images/dice${value}.png`;
-        diceImage.alt = `Dice ${value}`;
+        diceImage.src   = `images/dice${value}.png`;
+        diceImage.alt   = `Dice ${value}`;
     }
 
     // Add rolling animation
@@ -206,8 +206,8 @@ class SkunkGame {
         const isThreeOfAKind    = this.diceCount === 3 && this.isThreeOfAKind(diceValues);
         const isTripleSnakeEyes = this.diceCount === 3 && totalSnakeEyes === 3;
 
-        let message     = '';
-        let messageType = 'success';
+        let message             = '';
+        let messageType         = 'success';
 
         // On first roll of section, only auto-reroll if exactly one die is 1
         if (this.firstRollInSection && this.sectionScores[this.currentSection - 1] === 0 && snakeEyes === 1) {
@@ -361,6 +361,7 @@ class SkunkGame {
         const holdBtn = document.getElementById('hold-btn');
         
         if (this.roundScore === 0) {
+            
             holdBtn.disabled      = true;
             holdBtn.style.opacity = '0.5';
             holdBtn.style.cursor  = 'not-allowed';
@@ -413,9 +414,9 @@ class SkunkGame {
         this.hasGameStarted     = false; // Reset game state
         this.firstRollInSection = true;
         this.isFinalized        = false;
-        this.enableControls();
-        this.updateDisplay();
-        this.updateDiceDisplay();
+        this.enableControls    ();
+        this.updateDisplay     ();
+        this.updateDiceDisplay ();
         this.showMessage('Game reset!', 'success');
     }
 }
@@ -512,7 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let classicGame    = null;
     let skunkGame      = null;
 
-    // Helper to clean up SKUNK game event listeners (optional, for robustness)
+    // Helper to clean up SKUNK game event listeners.
     function destroySkunkGame() {
         // Not strictly necessary if you hide the UI, but could be implemented if needed
         // For now, just set to null
@@ -540,35 +541,38 @@ document.addEventListener('DOMContentLoaded', () => {
     // Classic PvC Dice Game implementation
     class DiceGame {
         constructor() {
-            this.round = 1;
-            this.maxRounds = 3;
-            this.playerScores = [];
+            this.round          = 1;
+            this.maxRounds      = 3;
+            this.playerScores   = [];
             this.computerScores = [];
-            this.isFinalized = false;
+            this.isFinalized    = false;
             this.init();
         }
         init() {
             this.updateRoundDisplay();
-            this.updateScores();
-            this.enableControls();
+            this.updateScores      ();
+            this.enableControls    ();
             document.getElementById('classic-roll-btn').onclick  = () => this.playRound();
             document.getElementById('classic-reset-btn').onclick = () => this.resetGame();
         }
+        
         playRound() {
+            
             if (this.isFinalized || this.round > this.maxRounds) return;
             // Animate dice for both player and computer
             this.animateDice('player');
             this.animateDice('computer');
             // Player roll
-            const playerRoll = [this.randomDie(), this.randomDie()];
-            const playerScore = this.evaluateRoll(playerRoll);
+            const playerRoll    = [this.randomDie(), this.randomDie()];
+            const playerScore   = this.evaluateRoll(playerRoll);
             this.playerScores.push(playerScore);
             // Computer roll
-            const computerRoll = [this.randomDie(), this.randomDie()];
+            const computerRoll  = [this.randomDie(), this.randomDie()];
             const computerScore = this.evaluateRoll(computerRoll);
             this.computerScores.push(computerScore);
             // After animation, update dice faces and scores
             setTimeout(() => {
+                
                 this.updateDiceDisplay('player', playerRoll);
                 this.updateDiceDisplay('computer', computerRoll);
                 this.updateScores();
@@ -585,12 +589,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 800);
         }
         evaluateRoll(diceValues) {
+            
             if (diceValues.includes(1)) return 0;
             if (new Set(diceValues).size === 1)
                 return diceValues.reduce((a, b) => a + b) * 2;
             return diceValues.reduce((a, b) => a + b);
         }
         updateDiceDisplay(who, values) {
+            
             if (who === 'player') {
                 document.getElementById('classic-player-dice1').querySelector('img').src   = `images/dice${values[0]}.png`;
                 document.getElementById('classic-player-dice2').querySelector('img').src   = `images/dice${values[1]}.png`;
@@ -608,6 +614,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('classic-computer-total-score').textContent = this.computerScores.reduce((a,b)=>a+b,0);
         }
         updateRoundDisplay() {
+            
             for (let i = 1; i <= this.maxRounds; i++) {
                 const el = document.getElementById('round'+i);
                 if (i === this.round) {
@@ -620,6 +627,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         endGame() {
+            
             this.isFinalized    = true;
             this.disableControls();
             const playerTotal   = this.playerScores.reduce((a,b)=>a+b,0);
@@ -631,6 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showMessage(`Game Over! ${msg} (You: ${playerTotal}, Computer: ${computerTotal})`, 'success');
         }
         resetGame() {
+            
             this.round          = 1;
             this.playerScores   = [];
             this.computerScores = [];
@@ -644,30 +653,38 @@ document.addEventListener('DOMContentLoaded', () => {
             showMessage('New game started!', 'success');
         }
         randomDie() {
+            
             return Math.floor(Math.random()*6)+1;
         }
         disableControls() {
+            
             document.getElementById('classic-roll-btn').disabled      = true;
             document.getElementById('classic-roll-btn').style.opacity = '0.5';
             document.getElementById('classic-roll-btn').style.cursor  = 'not-allowed';
         }
         enableControls() {
+            
             document.getElementById('classic-roll-btn').disabled      = false;
             document.getElementById('classic-roll-btn').style.opacity = '1';
             document.getElementById('classic-roll-btn').style.cursor  = 'pointer';
         }
         animateDice(who) {
+            
             if (who === 'player') {
+                
                 document.getElementById('classic-player-dice1').classList.add('rolling');
                 document.getElementById('classic-player-dice2').classList.add('rolling');
                 setTimeout(() => {
+                    
                     document.getElementById('classic-player-dice1').classList.remove('rolling');
                     document.getElementById('classic-player-dice2').classList.remove('rolling');
                 }, 800);
             } else {
+                
                 document.getElementById('classic-computer-dice1').classList.add('rolling');
                 document.getElementById('classic-computer-dice2').classList.add('rolling');
                 setTimeout(() => {
+                    
                     document.getElementById('classic-computer-dice1').classList.remove('rolling');
                     document.getElementById('classic-computer-dice2').classList.remove('rolling');
                 }, 800);
