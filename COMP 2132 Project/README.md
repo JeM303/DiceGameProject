@@ -9,7 +9,7 @@ Jeremy Melegrito
 
 ## Game Overview
 
-## Getting Started
+Getting Started
 
 1. Open `Index.html` in a modern web browser
 2. Select your preferred game mode (SKUNK or Classic)
