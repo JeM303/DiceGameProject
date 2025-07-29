@@ -9,8 +9,6 @@ Jeremy Melegrito
 
 ## Game Overview
 
----
-
 ## Getting Started
 
 1. Open `Index.html` in a modern web browser
