@@ -1,11 +1,11 @@
-## Author
-
-Jeremy Melegrito
-
 # SKUNK Dice Game & Classic PvC Dice Game - COMP 2132 Project
 
 A JavaScript web application implementing both the classic SKUNK dice game 
 and a Player vs Computer (PvC) 3-round dice game.
+
+## Author
+
+Jeremy Melegrito
 
 ## Game Overview
 
