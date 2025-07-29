@@ -72,7 +72,7 @@ This website supports two game modes:
 
 ### Classic Mode
 - **Rounds**: 3 rounds, both player and computer roll each round
-- **Scoring**: See rules above
+- **Scoring**: Check rules above after rolling dice
 - **Winner**: Highest total after 3 rounds
 
 ## Customization
