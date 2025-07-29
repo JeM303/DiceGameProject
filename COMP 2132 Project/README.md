@@ -2,11 +2,11 @@
 
 A JavaScript web application implementing both the classic SKUNK dice game 
 and a Player vs Computer (PvC) 3-round dice game.
-
+---
 ## Author
 
 Jeremy Melegrito
-
+---
 ## Game Overview
 
 Getting Started
