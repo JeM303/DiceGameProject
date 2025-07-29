@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1 class="game-title">DICE GAME</h1>
+            <p class="game-subtitle">By: Jeremy Melegrito</p>
+        </header>
+
+        <div class="game-messages">
+            <div id="message" class="message"></div>
+        </div>
+
+        <!-- Mode Selector -->
+        <div class="mode-selector">
+            <label for="game-mode">Game Mode:</label>
+            <select id="game-mode">
+                <option value="skunk">SKUNK Game</option>
+                <option value="classic">Classic PvC Dice Game</option>
+            </select>
+        </div>
+
+        <!-- SKUNK Game UI (existing, will be hidden in classic mode) -->
+        <div id="skunk-game-ui">
+            <div class="game-controls">
+                <div class="dice-selector">
+                    <label for="dice-count">Number of Dice:</label>
+                    <select id="dice-count">
+                        <option value="2">2 Dice</option>
+                        <option value="3">3 Dice</option>
+                    </select>
+                </div>
+                <button id="roll-btn" class="roll-button">Roll Dice</button>
+                <button id="hold-btn" class="hold-button">Hold Points</button>
+                <button id="reset-btn" class="reset-button">New Game</button>
+            </div>
+
+            <div class="game-board">
+                <div class="sections-container">
+                    <div class="section" data-section="1">
+                        <h3>S</h3>
+                        <div class="section-score">0</div>
+                    </div>
+                    <div class="section" data-section="2">
+                        <h3>K</h3>
+                        <div class="section-score">0</div>
+                    </div>
+                    <div class="section" data-section="3">
+                        <h3>U</h3>
+                        <div class="section-score">0</div>
+                    </div>
+                    <div class="section" data-section="4">
+                        <h3>N</h3>
+                        <div class="section-score">0</div>
+                    </div>
+                    <div class="section" data-section="5">
+                        <h3>K</h3>
+                        <div class="section-score">0</div>
+                    </div>
+                </div>
+
+                <div class="dice-area">
+                    <div class="dice-container">
+                        <div class="dice" id="dice1">
+                            <img src="images/dice1.png" alt="Dice 1" class="dice-image">
+                        </div>
+                        <div class="dice" id="dice2">
+                            <img src="images/dice1.png" alt="Dice 1" class="dice-image">
+                        </div>
+                        <div class="dice" id="dice3" style="display: none;">
+                            <img src="images/dice1.png" alt="Dice 1" class="dice-image">
+                        </div>
+                    </div>
+                    <div class="dice-values">
+                        <span id="dice-value1">1</span>
+                        <span id="dice-value2">1</span>
+                        <span id="dice-value3" style="display: none;">1</span>
+                    </div>
+                </div>
+
+                <div class="game-info">
+                    <div class="current-section">
+                        <h3>Current Section: <span id="current-section">S</span></h3>
+                    </div>
+                    <div class="round-score">
+                        <h3>Round Score: <span id="round-score">0</span></h3>
+                    </div>
+                    <div class="total-score">
+                        <h3>Total Score: <span id="total-score">0</span></h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-rules">
+                <h3>Game Rules:</h3>
+                <div class="rules-content">
+                    <div class="rule-section">
+                        <h4>2 Dice Rules:</h4>
+                        <ul>
+                            <li>Roll to accumulate points in each section (S-K-U-N-K)</li>
+                            <li>Snake eyes (1-1): Lose points for current section</li>
+                            <li>Double snake eyes: Lose ALL points</li>
+                            <li>Use "Hold Points" to keep your current section score</li>
+                        </ul>
+                    </div>
+                    <div class="rule-section">
+                        <h4>3 Dice Rules:</h4>
+                        <ul>
+                            <li>Snake eyes (any 1): Lose points for current section</li>
+                            <li>Double snake eyes: Lose ALL points</li>
+                            <li>Triple snake eyes: Lose ALL points</li>
+                            <li>Three of a kind (any number except 1): +100 points</li>
+                            <li>Use "Hold Points" to keep your current section score</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Classic PvC Dice Game UI (hidden by default) -->
+        <div id="classic-game-ui" style="display:none;">
+            <div class="classic-controls">
+                <button id="classic-roll-btn" class="roll-button">Roll Dice</button>
+                <button id="classic-reset-btn" class="reset-button">New Game</button>
+            </div>
+            <div class="rounds-container">
+                <div class="round" id="round1">Round 1</div>
+                <div class="round" id="round2">Round 2</div>
+                <div class="round" id="round3">Round 3</div>
+            </div>
+            <div class="classic-board">
+                <div class="player-area">
+                    <h3>Player</h3>
+                    <div class="dice-area" id="classic-player-dice-area">
+                        <div class="dice" id="classic-player-dice1">
+                            <img src="images/dice1.png" alt="Dice 1" class="dice-image">
+                        </div>
+                        <div class="dice" id="classic-player-dice2">
+                            <img src="images/dice1.png" alt="Dice 1" class="dice-image">
+                        </div>
+                    </div>
+                    <div class="score">Round: <span id="classic-player-round-score">0</span> | Total: <span id="classic-player-total-score">0</span></div>
+                </div>
+                <div class="computer-area">
+                    <h3>Computer</h3>
+                    <div class="dice-area" id="classic-computer-dice-area">
+                        <div class="dice" id="classic-computer-dice1">
+                            <img src="images/dice1.png" alt="Dice 1" class="dice-image">
+                        </div>
+                        <div class="dice" id="classic-computer-dice2">
+                            <img src="images/dice1.png" alt="Dice 1" class="dice-image">
+                        </div>
+                    </div>
+                    <div class="score">Round: <span id="classic-computer-round-score">0</span> | Total: <span id="classic-computer-total-score">0</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/game.js" defer></script>
+</body>
+</html>

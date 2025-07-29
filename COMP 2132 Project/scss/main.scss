@@ -1,0 +1,447 @@
+// SCSS Variables
+$primary-color:    #2c3e50;
+$secondary-color:  #3498db;
+$accent-color:     #e74c3c;
+$success-color:    #27ae60;
+$warning-color:    #f39c12;
+$hold-color:       #9b59b6;
+$background-color: #3b4e5f;
+$text-color:       #2c3e50;
+$dice-color:       #ffffff;
+$dice-border:      #34495e;
+$section-colors: #e74c3c, #f39c12, #f1c40f, #27ae60, #3498db;
+
+// Typography
+$font-family: 'Orbitron', monospace;
+$font-size-base:  16px;
+$font-size-large: 24px;
+$font-size-xl:    32px;
+
+// Spacing
+$spacing-xs:  8px;
+$spacing-sm: 16px;
+$spacing-md: 24px;
+$spacing-lg: 32px;
+$spacing-xl: 48px;
+
+// Border radius
+$border-radius:        8px;
+$border-radius-large: 16px;
+
+// Transitions
+$transition-speed: 0.3s;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin button-style($bg-color, $text-color: white) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius;
+  font-family: $font-family;
+  font-size: $font-size-base;
+  cursor: pointer;
+  transition: all $transition-speed ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@mixin dice-style {
+  width:  60px;
+  height: 60px;
+  background-color: $dice-color;
+  border: 3px solid $dice-border;
+  border-radius: $border-radius;
+  position: relative;
+  margin: $spacing-xs;
+  transition: transform $transition-speed ease;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+@mixin section-style($color) {
+  background: linear-gradient(135deg, $color, darken($color, 10%));
+  color: white;
+  padding: $spacing-md;
+  border-radius: $border-radius-large;
+  text-align: center;
+  min-width: 120px;
+  transition: all $transition-speed ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Global Styles
+* {
+  margin:  0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family;
+  background: linear-gradient(135deg, $background-color, darken($background-color, 5%));
+  min-height:  100vh;
+  color: $text-color;
+  line-height:   1.6;
+}
+
+.game-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-lg;
+}
+
+// Header Styles
+.game-header {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  
+  .game-title {
+    font-size: $font-size-xl * 2;
+    font-weight: 900;
+    color: $primary-color;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: $spacing-sm;
+    animation: fadeInDown 1s ease-out;
+  }
+  
+  .game-subtitle {
+    font-size: $font-size-base;
+    color: $secondary-color;
+    font-weight: 400;
+  }
+}
+
+// Game Controls
+.game-controls {
+  @include flex-center;
+  gap: $spacing-md;
+  margin-bottom: $spacing-xl;
+  flex-wrap: wrap;
+  
+  .dice-selector {
+    @include flex-center;
+    gap: $spacing-sm;
+    
+    label {
+      font-weight: 700;
+      color: $primary-color;
+    }
+    
+    select {
+      padding: $spacing-xs $spacing-sm;
+      border: 2px solid $secondary-color;
+      border-radius: $border-radius;
+      font-family: $font-family;
+      font-size: $font-size-base;
+      background-color: white;
+      cursor: pointer;
+    }
+  }
+  
+  .roll-button {
+    @include button-style($success-color);
+    font-weight: 700;
+    font-size: $font-size-large;
+    padding: $spacing-md $spacing-lg;
+  }
+  
+  .hold-button {
+    @include button-style($hold-color);
+    font-weight: 700;
+    font-size: $font-size-base;
+    padding: $spacing-sm $spacing-md;
+  }
+  
+  .reset-button {
+    @include button-style($accent-color);
+    font-weight: 700;
+  }
+}
+
+// Game Board
+.game-board {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-xl;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+  }
+}
+
+// Sections Container
+.sections-container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  
+  .section {
+    @include section-style(nth($section-colors, 1));
+    
+    &:nth-child(1) { @include section-style(nth($section-colors, 1)); }
+    &:nth-child(2) { @include section-style(nth($section-colors, 2)); }
+    &:nth-child(3) { @include section-style(nth($section-colors, 3)); }
+    &:nth-child(4) { @include section-style(nth($section-colors, 4)); }
+    &:nth-child(5) { @include section-style(nth($section-colors, 5)); }
+    
+    h3 {
+      font-size: $font-size-xl;
+      font-weight: 900;
+      margin-bottom: $spacing-xs;
+    }
+    
+    .section-score {
+      font-size: $font-size-large;
+      font-weight: 700;
+    }
+    
+    &.active {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+// Dice Area
+.dice-area {
+  @include flex-center;
+  flex-direction: column;
+  gap: $spacing-md;
+  
+  .dice-container {
+    @include flex-center;
+    gap: $spacing-sm;
+    flex-wrap: wrap;
+  }
+  
+  .dice {
+    @include dice-style;
+    
+    .dice-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: $border-radius;
+      border: none; // Remove outline
+      box-shadow: none; // Remove any shadow
+    }
+  }
+  
+  .dice-values {
+    @include flex-center;
+    gap: $spacing-md;
+    font-size: $font-size-large;
+    font-weight: 700;
+    color: $primary-color;
+  }
+}
+
+// Game Info
+.game-info {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  
+  .current-section,
+  .round-score,
+  .total-score {
+    background-color: white;
+    padding: $spacing-md;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    
+    h3 {
+      font-size: $font-size-base;
+      color: $primary-color;
+      margin-bottom: $spacing-xs;
+    }
+    
+    span {
+      font-size: $font-size-large;
+      font-weight: 700;
+      color: $secondary-color;
+    }
+  }
+  
+  .total-score span {
+    color: $success-color;
+  }
+}
+
+// Game Messages
+.game-messages {
+  margin-bottom: $spacing-lg;
+  
+  .message {
+    padding: $spacing-md;
+    border-radius: $border-radius;
+    text-align: center;
+    font-weight: 700;
+    font-size: $font-size-large;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all $transition-speed ease;
+    
+    &.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    &.success {
+      background-color: $success-color;
+      color: white;
+    }
+    
+    &.warning {
+      background-color: $warning-color;
+      color: white;
+    }
+    
+    &.error {
+      background-color: $accent-color;
+      color: white;
+    }
+    
+    &.info {
+      background-color: $hold-color;
+      color: white;
+    }
+  }
+}
+
+// Game Rules
+.game-rules {
+  background-color: white;
+  padding: $spacing-lg;
+  border-radius: $border-radius-large;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  
+  h3 {
+    color: $primary-color;
+    font-size: $font-size-large;
+    margin-bottom: $spacing-md;
+    text-align: center;
+  }
+  
+  .rules-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-lg;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .rule-section {
+    h4 {
+      color: $secondary-color;
+      font-size: $font-size-base;
+      margin-bottom: $spacing-sm;
+      font-weight: 700;
+    }
+    
+    ul {
+      list-style: none;
+      padding-left: 0;
+      
+      li {
+        padding: $spacing-xs 0;
+        border-bottom: 1px solid lighten($background-color, 10%);
+        font-size: 14px;
+        line-height: 1.4;
+        
+        &:before {
+          content: "•";
+          color: $secondary-color;
+          font-weight: bold;
+          margin-right: $spacing-xs;
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rollDice {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: rotateX(360deg) rotateY(180deg);
+  }
+  50% {
+    transform: rotateX(720deg) rotateY(360deg);
+  }
+  75% {
+    transform: rotateX(1080deg) rotateY(540deg);
+  }
+  100% {
+    transform: rotateX(1440deg) rotateY(720deg);
+  }
+}
+
+.rolling {
+  animation: rollDice 0.8s ease-in-out;
+}
+
+// Responsive Design
+@media (max-width: 480px) {
+  .game-container {
+    padding: $spacing-md;
+  }
+  
+  .game-title {
+    font-size: $font-size-xl;
+  }
+  
+  .dice {
+    width:  50px;
+    height: 50px;
+  }
+  
+  .sections-container .section {
+    min-width: 100px;
+    padding: $spacing-sm;
+  }
+} 
