@@ -18,7 +18,7 @@ Getting Started
 
 ---
 
-This app supports two game modes:
+This website supports two game modes:
 - **SKUNK Dice Game**: A strategic dice game with 5 sections (S-K-U-N-K) and risk management.
 - **Classic PvC Dice Game**: A 3-round game where you play against the computer, highest score wins.
 ---
